@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Xem nét tô chữ</title>
+<style>
+  body { font: 14px system-ui, sans-serif; margin: 16px; background: #f6f7fb; color: #1d2750; }
+  h2 { margin: 18px 0 8px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; }
+  figure { margin: 0; background: #fff; border-radius: 12px; padding: 4px; text-align: center; }
+  svg { width: 100%; height: auto; }
+  .g { fill: none; stroke: #e6e1fb; stroke-width: 15; stroke-linecap: round; stroke-linejoin: round; }
+  .l { stroke: #c9d4f2; stroke-width: 1.2; }
+  .d { fill: #fff; stroke: #7a5cff; stroke-width: 2; }
+  .s { fill: #ff6b5e; }
+  figcaption { font-weight: 700; }
+</style>
+</head>
+<body>
+<p>Dev tool: draws the tracing strokes from game.js (open via the local server, e.g. http://localhost:8765/tools/stroke-preview.html). Red dot = start of each stroke.</p>
+<div id="out"></div>
+<script>
+fetch('../game.js').then(r => r.text()).then(src => {
+  const a = src.indexOf('const ARC = '), b = src.indexOf('const pathD = ');
+  // Evaluate only the stroke data and helpers (no game code runs).
+  const api = new Function(src.slice(a, b) + '; return { STROKES, strokePts, dotsAlong };')();
+  const out = document.getElementById('out');
+  for (const kind of ['lower', 'upper']) {
+    const h = document.createElement('h2'); h.textContent = kind === 'lower' ? 'Chữ thường' : 'Chữ hoa'; out.append(h);
+    const grid = document.createElement('div'); grid.className = 'grid'; out.append(grid);
+    for (const [ch, strokes] of Object.entries(api.STROKES[kind])) {
+      const vb = kind === 'lower' ? '-20 -12 140 165' : '-20 -42 140 160';
+      let s = `<svg viewBox="${vb}"><line class="l" x1="-20" y1="100" x2="120" y2="100"/>` + (kind === 'lower' ? '<line class="l" x1="-20" y1="45" x2="120" y2="45"/>' : '');
+      strokes.map(api.strokePts).forEach(pts => {
+        s += `<path class="g" d="M${pts.map(p => p.join(' ')).join('L')}${pts.length === 1 ? 'h.01' : ''}"/>`;
+        api.dotsAlong(pts, 22).forEach((p, i) => { s += `<circle class="${i ? 'd' : 's'}" cx="${p[0]}" cy="${p[1]}" r="${i ? 4 : 6}"/>`; });
+      });
+      const f = document.createElement('figure');
+      f.innerHTML = s + `</svg><figcaption>${kind === 'lower' ? ch.toLowerCase() : ch}</figcaption>`;
+      grid.append(f);
+    }
+  }
+});
+</script>
+</body>
+</html>

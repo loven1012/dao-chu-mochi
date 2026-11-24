@@ -1,0 +1,17 @@
+{
+  "name": "Đảo Chữ Mochi",
+  "short_name": "Mochi",
+  "description": "Trò chơi học chữ cái tiếng Việt cho bé",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#2f8f96",
+  "theme_color": "#2f8f96",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

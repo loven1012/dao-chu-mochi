@@ -1,0 +1,5 @@
+# Local only: original artifact export, editor/session settings, Python caches
+original/
+.claude/
+__pycache__/
+*.pyc

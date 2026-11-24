@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Đảo Chữ Mochi</title>
+<meta name="theme-color" content="#2f8f96">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Mochi">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@600;800&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+
+  <section id="home" class="screen" aria-label="Màn hình chính">
+    <div class="wrap">
+      <div class="topbar">
+        <div id="totStars" class="totstars" aria-label="Tổng số sao">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.7 1.3 6.7-6-3.4-6 3.4 1.3-6.7-5-4.7 6.8-.8z" fill="#ffc83d" stroke="#e0a500" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <b>0</b>
+        </div>
+        <div class="rightcl">
+        <div>
+          <button id="pickBtn" class="hold" type="button" aria-label="Chọn chữ cho bé học. Giữ 1 giây để mở.">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19 9 5l5 14M5.8 14.5h6.4"/><path d="M17 8v8M14 12h6"/></svg>
+          </button>
+          <span class="hold-label">Chọn chữ</span>
+        </div>
+        <div>
+          <button id="gear" class="hold" type="button" aria-label="Khu vực phụ huynh. Giữ 2 giây để mở.">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3h.1a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9v.1a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+          </button>
+          <span class="hold-label">Phụ huynh</span>
+        </div>
+        </div>
+      </div>
+      <h1 class="logo"><span>Đảo Chữ</span><em>Mochi</em></h1>
+      <div class="hero">
+        <div class="pal" id="palL"></div>
+        <button id="homeMochi" class="mochi homemochi" type="button" aria-label="Chạm vào Mochi để chào"></button>
+        <div class="mid">
+        <button id="playBtn" class="play" type="button" aria-label="Chơi">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12-7.5a1 1 0 0 0 0-1.8l-12-7.5A1 1 0 0 0 7 4.5z" fill="#fff"/></svg>
+        </button>
+          <button id="zooBtn" class="zoopill" type="button" aria-label="Nhà thú"><span>🐾 Nhà thú</span><b id="zooCount">0/160</b></button>
+        </div>
+        <div class="pal r" id="palR"></div>
+      </div>
+      <div id="chips" class="chips" aria-label="Các chữ đang học"></div>
+    </div>
+    <div class="hill-full">
+      <div class="wrap" id="worlds"></div>
+    </div>
+  </section>
+
+  <section id="play" class="screen" hidden aria-label="Màn chơi">
+    <div class="bgs" aria-hidden="true"><i id="bgi"></i></div>
+    <div class="wrap" style="display:flex;flex-direction:column;flex:1;min-height:0">
+      <div class="hud">
+        <button id="homeHold" class="hold" type="button" aria-label="Về nhà. Giữ 1 giây.">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg>
+        </button>
+        <div class="lvl"><b id="lvlName"></b><small id="lvlNum"></small></div>
+        <div id="hearts" class="hearts" aria-label="Số tim còn lại"></div>
+      </div>
+      <div class="timerow" aria-label="Thời gian còn lại">
+        <div id="timebar" class="timebar"><i></i></div>
+        <b id="timeNum">0</b>
+      </div>
+      <div class="scene">
+        <div class="talk">
+          <div id="mochi" class="mochi" aria-hidden="true"></div>
+          <button id="bubble" class="bubble" type="button" aria-live="polite" aria-label="Nghe lại">
+            <span id="bubbleMain" class="txt"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5l5 4v-13l-5 4z" fill="currentColor"/><path d="M16 9a4.2 4.2 0 0 1 0 6M18.6 6.5a8 8 0 0 1 0 11"/></svg>
+          </button>
+        </div>
+        <div id="arena" class="arena"></div>
+        <div id="caption" class="caption" aria-live="polite"></div>
+      </div>
+    </div>
+    <div id="fx"></div>
+    <div id="result" class="modal" hidden role="dialog" aria-modal="true" aria-label="Kết quả"></div>
+  </section>
+
+  <section id="zoo" class="screen" hidden aria-label="Nhà thú">
+    <div class="wrap">
+      <div class="zhead">
+        <button id="zooBack" class="hold zback" type="button" aria-label="Về nhà">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/></svg>
+        </button>
+        <h1>Nhà thú</h1>
+        <b id="zooTotal" class="ztotal">0/160</b>
+      </div>
+      <p class="zsub">Chạm vào bạn thú để nghe tên chữ. Chơi thắng sẽ nhận thêm trứng.</p>
+      <div id="zooGrid"></div>
+    </div>
+  </section>
+
+  <section id="sleep" class="screen" hidden aria-label="Mochi đi ngủ">
+    <span class="z" style="top:26%;left:58%">Z</span>
+    <span class="z" style="top:30%;left:66%;animation-delay:1s;font-size:1.5rem">z</span>
+    <div id="sleepMochi" class="mochi sleep"></div>
+    <h2>Mochi buồn ngủ rồi</h2>
+    <p>Hôm nay con chơi giỏi lắm. Hẹn gặp lại con vào lần sau nhé!</p>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+      <button id="wake" class="hold" type="button" aria-label="Dành cho phụ huynh. Giữ 2 giây để đánh thức Mochi.">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      </button>
+      <span class="hold-label" style="color:#cfd8ff">Phụ huynh giữ 2 giây</span>
+    </div>
+  </section>
+
+  <div id="picker" class="modal" hidden role="dialog" aria-modal="true" aria-label="Chọn chữ"></div>
+  <div id="parent" class="modal" hidden role="dialog" aria-modal="true" aria-label="Khu vực phụ huynh"></div>
+</div>
+
+<script src="voice/index.js"></script>
+<script src="game.js"></script>
+<script>
+// Offline copy for the home-screen app (needs https or localhost).
+if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>
